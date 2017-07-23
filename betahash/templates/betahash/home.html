@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static "betafeed/css/bootstrap.min.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "betahash/css/home.css" %}">
+
+	<!-- Library code. -->
+	<script type="text/javascript" src="{% static "betafeed/js/jquery-2.0.2.js" %}"></script>
+	<script type="text/javascript" src="{% static "betafeed/js/angular.js" %}"></script>
+	<script type="text/javascript" src="{% static "betafeed/js/ui-bootstrap-tpls-1.3.3.min.js" %}"></script>
+	<script type="text/javascript" src="{% static "betahash/js/homeApp.js" %}"></script>
+	<script type="text/javascript">
+		var reddit_feed = '{{reddit_feed}}';
+		console.log(reddit_feed);
+	</script>
+	<title>Hoverland</title>
+</head>
+<body ng-app="homeApp" ng-controller="homeCtrl">
+	<div class="container-fluid">
+		
+	</div>
+</body>
+</html>
