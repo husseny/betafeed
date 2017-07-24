@@ -1,7 +1,14 @@
 @font-face {
 	font-family: 'infinity';
 	src: url('../font/infinity.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
-}  
+}
+
+
+body {
+  background-color: #eff0f4; /* fallback for old browsers */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 .background {
     background:url('../img/mackeyboard.jpg');
@@ -47,4 +54,43 @@
 	font-family: 'infinity';
 	font-weight: bold;
 	font-size: 50px;
+}
+
+.content {
+	height: 100vh;
+}
+
+.message {
+	padding-top: 30px;
+	text-align: center;
+}
+
+.message-text {
+	font-family: 'infinity';
+	font-weight: bold;
+	font-size: 30px;
+}
+
+.icons {
+	padding-top: 10px;
+	height:100px;
+	text-align: center;
+}
+
+.twitter-logo {
+	width: 28%;
+	height: auto;
+	cursor: pointer;
+}
+
+.reddit-logo {
+	width: 20%;
+	height: auto;
+	cursor: pointer;
+}
+
+.yc-logo {
+	width: 28%;
+	height: auto;
+	cursor: pointer;
 }

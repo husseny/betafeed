@@ -12,6 +12,7 @@
 	<script type="text/javascript" src="{% static "betafeed/js/jquery-2.0.2.js" %}"></script>
 	<script type="text/javascript" src="{% static "betafeed/js/angular.js" %}"></script>
 	<script type="text/javascript" src="{% static "betafeed/js/ui-bootstrap-tpls-1.3.3.min.js" %}"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.min.js"></script>
 	<script type="text/javascript" src="{% static "betahash/js/homeApp.js" %}"></script>
 	<script type="text/javascript">
 		var reddit_feed = '{{reddit_feed}}';
@@ -35,7 +36,33 @@
 				<!-- <img class="image" src="{% static "betahash/img/mackeyboard.jpg" %}"> -->
 			</div>
 		</div>
-		<div class="row">
+		<div class="content">
+			<div class="row">
+				<div class="col-md-offset-4 col-md-4 message">
+					<span class="message-text">Browse your hot beta testing hubs</span>
+				</div>
+			</div>
+			<div class="row icons">
+				<div class="col-md-offset-3 col-md-2">
+					<img class="twitter-logo" ng-click="feed_index = 1" src="{% static "betafeed/img/Twitter_Logo_White_On_Blue.png" %}">
+				</div>
+				<div class="col-md-2">
+					<img class="reddit-logo" ng-click="feed_index = 2" src="{% static "betafeed/img/reddit-alien.svg" %}">
+				</div>
+				<div class="col-md-2">
+					<img class="yc-logo" ng-click="feed_index = 3" src="{% static "betafeed/img/ycombinator-logo.png" %}">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-offset-2 col-md-4">
+					<div ng-show="feed_index == 1">twitter</div>
+					<div ng-show="feed_index == 2">reddit</div>
+					<div ng-show="feed_index == 3">coming soon</div>
+				</div>
+				<!-- <div class="col-md-offset-4 col-md-4"><span class="slide-left-animation" ng-show="show_left">left</span><span class="slide-left-animation" ng-hide="show_left">right</span></div> -->
+			</div>
+		</div>
+		<div>
 			
 		</div>
 	</div>
