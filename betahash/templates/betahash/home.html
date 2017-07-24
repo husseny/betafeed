@@ -4,6 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	{% load static %}
+	<script>try{Typekit.load({ async: true });}catch(e){}</script>
 	<link rel="stylesheet" type="text/css" href="{% static "betafeed/css/bootstrap.min.css" %}">
 	<link rel="stylesheet" type="text/css" href="{% static "betahash/css/home.css" %}">
 
@@ -14,13 +15,29 @@
 	<script type="text/javascript" src="{% static "betahash/js/homeApp.js" %}"></script>
 	<script type="text/javascript">
 		var reddit_feed = '{{reddit_feed}}';
-		console.log(reddit_feed);
+		var twitter_feed = '{{twitter_feed}}'
+		console.log(twitter_feed);
 	</script>
 	<title>Hoverland</title>
 </head>
 <body ng-app="homeApp" ng-controller="homeCtrl">
 	<div class="container-fluid">
-		
+		<div class="row">
+			<div class="background">
+				<div class="layer">
+					<div class="col-md-offset-1 col-md-3 title">
+						<span class="logo">BetaHash</span><span class="domain">.xyz</span></div>
+					<div>
+					<div class="col-md-4 headline">
+						<span class="headline-text">All in one news Feed for the beta testing community</span>
+					</div>
+				</div>
+				<!-- <img class="image" src="{% static "betahash/img/mackeyboard.jpg" %}"> -->
+			</div>
+		</div>
+		<div class="row">
+			
+		</div>
 	</div>
 </body>
 </html>
