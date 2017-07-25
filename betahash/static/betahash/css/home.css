@@ -143,6 +143,11 @@ body {
 
 .comments-url {
 	cursor: pointer;
+	font-weight: bold;
+}
+
+.reddit-date {
+	color: #888;
 }
 
 .hackernews {
