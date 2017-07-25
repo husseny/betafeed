@@ -55,8 +55,9 @@ app.controller('homeCtrl', ['$scope', '$http', '$window', 'Scopes',  function us
 	$scope.refresh_feed = function(){
 		if($scope.filter_query && $scope.filter_query.length > 0 && ! $scope.loading){
 			$scope.loading = true;
-			$post_data = {feed_index: $scope.feed_index, filter_query: $scope.filter_query};
-			$http.post(site_url+'refresh_feed/', $post_data).success(function(data){
+			$post_data = { params:{feed_index: $scope.feed_index, filter_query: $scope.filter_query}};
+			$http.get(site_url+'refresh_feed/', $post_data).success(function(data){
+				console.log(data);
 				if(data != -1){
 					json_data = JSON.parse(data['feed']);
 					if($scope.feed_index == 1)
@@ -77,7 +78,7 @@ app.controller('homeCtrl', ['$scope', '$http', '$window', 'Scopes',  function us
 		if(!$scope.filter_query && ! $scope.loading){
 			$scope.loading = true;
 			$post_data = {feed_index: $scope.feed_index};
-			$http.post(site_url+'reset_feed/', $post_data).success(function(data){
+			$http.get(site_url+'reset_feed/', $post_data).success(function(data){
 				if(data != -1){
 					json_data = JSON.parse(data['feed']);
 					if($scope.feed_index == 1)
