@@ -59,8 +59,10 @@ def get_reddit_feed(request):
 	data_array = data1['children'] + data2['children'] + data3['children']
 	for item in data_array:
 		item_data = item['data']
-		print >>sys.stderr, item_data
-		result.append({'url': item_data['url'], 'title': item_data['title']})
+		created_at = datetime.fromtimestamp(item_data['created'])
+		date = pretty_date(created_at)
+		result.append({'url': item_data['url'], 'comments': item_data['permalink'], 
+			'user_name': item_data['author'], 'title': item_data['title'], 'date': date})
 	contains_filter = contains_key_value('title', 'Instabug')
 	not_contains_filter = not_contains_key_value('title', 'Instabug')
 	priority_result = filter(contains_filter, result)

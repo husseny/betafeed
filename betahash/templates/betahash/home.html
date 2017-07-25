@@ -37,8 +37,8 @@
 		</div>
 		<div class="content">
 			<div class="row">
-				<div class="col-md-offset-4 col-md-4 message">
-					<span class="message-text">Browse your hot beta testing hubs</span>
+				<div class="col-md-offset-3 col-md-6 message">
+					<span class="message-text">Browse your favourite beta testing hubs</span>
 				</div>
 			</div>
 			<div class="row icons">
@@ -56,17 +56,20 @@
 				<div class="col-md-offset-3 col-md-6 scrollable-div">
 					<div ng-show="feed_index == 1">
 						<div class="col-md-12 tweet" ng-repeat="tweet in tweets track by $index"
-							ng-click="open_status(tweet.status_id)">
+							ng-click="open_url('https://twitter.com/statuses/'+tweet.status_id)">
 							<div class="col-md-2">
 								<div class="img-div">
 									<img class="img-circle" ng-src="{[{tweet.profile_image}]}"
-										ng-click="open_profile(tweet.screen_name)">
+										ng-click="open_url('https://twitter.com/'+tweet.screen_name)">
 								</div>
 							</div>
 							<div class="col-md-10">
 								<div class="row">
-									<span><a href="" ng-click="open_profile(tweet.screen_name)">{[{tweet.user_name}]}</a></span>
-									<span ng-click="open_profile(tweet.screen_name)">@{[{tweet.screen_name}]}</span> - 
+									<span>
+										<a href="" ng-click="open_url('https://twitter.com/'+tweet.screen_name)">{[{tweet.user_name}]}</a>
+									</span>
+									<span ng-click="open_url('https://twitter.com/'+tweet.screen_name)">
+										@{[{tweet.screen_name}]}</span> - 
 									<span>{[{tweet.date}]}</span>
 								</div>
 								<div class="row">
@@ -75,10 +78,35 @@
 							</div>
 						</div>
 					</div>
-					<div ng-show="feed_index == 2">reddit</div>
-					<div ng-show="feed_index == 3">coming soon</div>
+					<div ng-show="feed_index == 2">
+						<div class="col-md-12 post" ng-repeat="post in reddit_posts track by $index">
+							<div class="col-md-offset-1 col-md-10">
+								<div class="row">
+									<span class="post-title" ng-click="open_url(post.url)">{[{post.title}]}</span>
+								</div>
+								<div class="row">
+									<span>submitted {[{post.date}]} by 
+										<a href="" ng-click="open_url('https://www.reddit.com/user/'+post.user_name)">{[{post.user_name}]}</a>
+									</span>
+								</div>
+								<div class="row">
+									<span class="comments-url" ng-click="open_url('https://www.reddit.com'+post.comments)">comment</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div ng-show="feed_index == 3">
+						<div class="col-md-12 hackernews">
+							<div class="col-md-offset-4 col-md-4">
+								<br><br><br><br><br><br><br><br>
+								<div class="row">
+									<span class="yc-message">Coming Soon</span>
+								</div>
+								<br><br><br><br><br><br><br><br>
+							</div>
+						</div>
+					</div>
 				</div>
-				<!-- <div class="col-md-offset-4 col-md-4"><span class="slide-left-animation" ng-show="show_left">left</span><span class="slide-left-animation" ng-hide="show_left">right</span></div> -->
 			</div>
 		</div>
 		<div>

@@ -73,7 +73,6 @@ body {
 
 .icons {
 	padding-top: 40px;
-	height:100px;
 	text-align: center;
 }
 
@@ -97,7 +96,7 @@ body {
 
 .feed {
 	padding-top: 40px;
-	height: 50%;
+	height: 60%;
 }
 
 .scrollable-div {
@@ -130,4 +129,37 @@ body {
 	cursor: pointer;
 	top: 0;
 	left: 0;
+}
+
+.post {
+	background-color: #fff;
+	border-bottom: 1.5px dotted #000;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.post-title {
+	color: #0000ff;
+	cursor: pointer;
+}
+
+.profile-name {
+	font-size: 15px;
+}
+
+.comments-url {
+	cursor: pointer;
+}
+
+.hackernews {
+	background-color: #fff;
+	text-align: center;
+}
+
+.yc-message {
+	font-family: 'infinity';
+	font-weight: bold;
+	font-size: 35px;
+	height: 100%;
+	top: 40%;
 }
