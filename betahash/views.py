@@ -21,10 +21,10 @@ def index(request):
 def get_twitter_feed(request):
 	api = twitter.Api(consumer_key='3uHqK8RF4IevpfJAIgB7onZ1r', consumer_secret='2Ju8XPrlEhHCxZWoDTAIiswxl2YDjr9mlgwkArkYzcyRMdqgyi', access_token_key='172919027-5UtjjiNh5gjdBzAkcYmC3gN3mBa8TSeKTjmHuGlc',access_token_secret='NgzeVYmqpjlMAtYdO8MPcQq7ykX2PCZm51YMIzHcvyHEi')
 	#print >>sys.stderr, api
-	data1 = api.GetSearch(raw_query="q=%23betatesting&result_type=recent&since=2016-07-19&count=100")
-	data2 = api.GetSearch(raw_query="q=%23betatesters&result_type=recent&since=2016-07-19&count=100")
-	data3 = api.GetSearch(raw_query="q=%23Betatesting%20%23Betatesters&since=2016-07-19")
-	data4 = api.GetSearch(raw_query="q=%23testmyapp&result_type=recent&since=2016-07-19")
+	data1 = api.GetSearch(raw_query="q=%23betatesting&result_type=recent")
+	data2 = api.GetSearch(raw_query="q=%23betatesters&result_type=recent")
+	data3 = api.GetSearch(raw_query="q=%23Betatesting%20%23Betatesters")
+	data4 = api.GetSearch(raw_query="q=%23testmyapp&result_type=recent")
 	json_data = []
 	data = data1 + data2 + data3 + data4
 	for item in data:
