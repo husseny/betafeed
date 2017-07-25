@@ -25,7 +25,7 @@ SECRET_KEY = 'z@m)0e=v3w)+g0wz-j0k^tn9qd&o^7)aa%0-lt+37)7^d7-dh('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['betahash.xyz']
 
 
 # Application definition
