@@ -19,18 +19,11 @@ def index(request):
 	return render(request, 'betahash/home.html', {'host_name':host_name, 'reddit_feed':json.dumps(feed), 'twitter_feed':json.dumps(twitter_feed)})
 
 def refresh_feed(request):
-	# post_data = json.loads(request.params)
-	# try:
-	# 	feed_index = post_data['feed_index']
-	# 	filter_query = post_data['filter_query']
-	# except (KeyError):
-	# 	return HttpResponse(-1)
 	try:
 		feed_index = int(request.GET.getlist('feed_index')[0])
 		filter_query = request.GET.getlist('filter_query')[0]
 	except (IndexError):
 		return HttpResponse(-1)
-	print >>sys.stderr, filter_query
 	if feed_index == 1:
 		feed = get_twitter_feed(request)
 	elif feed_index == 2:
@@ -43,10 +36,9 @@ def refresh_feed(request):
 	return JsonResponse({'feed':json.dumps(result)}, safe=False)
 
 def reset_feed(request):
-	post_data = json.loads(request.body)
 	try:
-		feed_index = post_data['feed_index']
-	except (KeyError):
+		feed_index = int(request.GET.getlist('feed_index')[0])
+	except (IndexError):
 		return HttpResponse(-1)
 	if feed_index == 1:
 		feed = get_twitter_feed(request)
