@@ -1,9 +1,3 @@
-@font-face {
-	font-family: 'infinity';
-	src: url('../font/infinity.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
-}
-
-
 body {
   background-color: #eff0f4; /* fallback for old browsers */
   -webkit-font-smoothing: antialiased;

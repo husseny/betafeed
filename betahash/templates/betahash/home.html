@@ -4,7 +4,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	{% load static %}
-	<script>try{Typekit.load({ async: true });}catch(e){}</script>
+
+	<style type="text/css">
+	@font-face { 
+		font-family: 'infinity';
+		src:url('{% static 'betahash/font/infinity.woff' %}') format('woff'), 
+			url('{% static 'betahash/font/infinity.ttf' %}') format('truetype');
+	} 
+	</style>
 	<link rel="stylesheet" type="text/css" href="{% static "betafeed/css/bootstrap.min.css" %}">
 	<link rel="stylesheet" type="text/css" href="{% static "betahash/css/home.css" %}">
 
