@@ -19,4 +19,6 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index),
+    url(r'^refresh_feed/', views.refresh_feed),
+    url(r'^reset_feed/', views.reset_feed)
 ]

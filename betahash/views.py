@@ -16,7 +16,40 @@ def index(request):
 		host_name = 'https://'+host+'/'
 	feed = get_reddit_feed(request)
 	twitter_feed = get_twitter_feed(request)
-	return render(request, 'betahash/home.html', {'reddit_feed':json.dumps(feed), 'twitter_feed':json.dumps(twitter_feed)})
+	return render(request, 'betahash/home.html', {'host_name':host_name, 'reddit_feed':json.dumps(feed), 'twitter_feed':json.dumps(twitter_feed)})
+
+def refresh_feed(request):
+	post_data = json.loads(request.body)
+	try:
+		feed_index = post_data['feed_index']
+		filter_query = post_data['filter_query']
+	except (KeyError):
+		return HttpResponse(-1)
+	if feed_index == 1:
+		feed = get_twitter_feed(request)
+	elif feed_index == 2:
+		feed = get_reddit_feed(request)
+	else:
+		return HttpResponse(-1)
+	contains_filter = contains_key_value('title', filter_query.capitalize())
+	# not_contains_filter = not_contains_key_value('title', filter_query.capitalize())
+	result = filter(contains_filter, feed)
+	return JsonResponse({'feed':json.dumps(result)}, safe=False)
+
+def reset_feed(request):
+	post_data = json.loads(request.body)
+	try:
+		feed_index = post_data['feed_index']
+	except (KeyError):
+		return HttpResponse(-1)
+	if feed_index == 1:
+		feed = get_twitter_feed(request)
+	elif feed_index == 2:
+		feed = get_reddit_feed(request)
+	else:
+		return HttpResponse(-1)
+	result = feed
+	return JsonResponse({'feed':json.dumps(result)}, safe=False)
 
 def get_twitter_feed(request):
 	api = twitter.Api(consumer_key='3uHqK8RF4IevpfJAIgB7onZ1r', consumer_secret='2Ju8XPrlEhHCxZWoDTAIiswxl2YDjr9mlgwkArkYzcyRMdqgyi', access_token_key='172919027-5UtjjiNh5gjdBzAkcYmC3gN3mBa8TSeKTjmHuGlc',access_token_secret='NgzeVYmqpjlMAtYdO8MPcQq7ykX2PCZm51YMIzHcvyHEi')
@@ -33,7 +66,7 @@ def get_twitter_feed(request):
 		date = pretty_date(datetime_object)
 		json_data.append({'screen_name':item['user']['screen_name'], 'user_name':item['user']['name'], 
 			'date':date, 'profile_image': item['user']['profile_image_url_https'], 
-			'status_id': item['id_str'], 'tweet':item['text']})
+			'status_id': item['id_str'], 'title':item['text']})
 	contains_filter = contains_key_value('screen_name', 'Instabug')
 	not_contains_filter = not_contains_key_value('screen_name', 'Instabug')
 	priority_result = filter(contains_filter, json_data)
