@@ -3,7 +3,8 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-import urllib, json, sys, requests, twitter
+import urllib, json, sys, requests, twitter, time
+from datetime import datetime
 
 # Create your views here.
 
@@ -13,10 +14,8 @@ def index(request):
 		host_name = 'http://'+host+'/'
 	else:
 		host_name = 'https://'+host+'/'
-	#feed = get_reddit_feed(request)
-	#twitter_feed = get_twitter_feed(request)
-	feed= []
-	twitter_feed = []
+	feed = get_reddit_feed(request)
+	twitter_feed = get_twitter_feed(request)
 	return render(request, 'betahash/home.html', {'reddit_feed':json.dumps(feed), 'twitter_feed':json.dumps(twitter_feed)})
 
 def get_twitter_feed(request):
@@ -30,14 +29,17 @@ def get_twitter_feed(request):
 	data = data1 + data2 + data3 + data4
 	for item in data:
 		item = item._json
-		print >>sys.stderr, item['user']['screen_name']
-		json_data.append({'screen_name':item['user']['screen_name'], 'status_id': item['id'], 'tweet':item['text']})
+		datetime_object = datetime.strptime(item['created_at'], '%a %b %d %H:%M:%S +0000 %Y')
+		date = pretty_date(datetime_object)
+		json_data.append({'screen_name':item['user']['screen_name'], 'user_name':item['user']['name'], 
+			'date':date, 'profile_image': item['user']['profile_image_url_https'], 
+			'status_id': item['id_str'], 'tweet':item['text']})
 	contains_filter = contains_key_value('screen_name', 'Instabug')
 	not_contains_filter = not_contains_key_value('screen_name', 'Instabug')
 	priority_result = filter(contains_filter, json_data)
 	unprio_result = filter(not_contains_filter, json_data)
 	result = priority_result + unprio_result
-	print >>sys.stderr, len(data)
+	#print >>sys.stderr, len(data)
 	return result
 
 def get_reddit_feed(request):
@@ -57,6 +59,7 @@ def get_reddit_feed(request):
 	data_array = data1['children'] + data2['children'] + data3['children']
 	for item in data_array:
 		item_data = item['data']
+		print >>sys.stderr, item_data
 		result.append({'url': item_data['url'], 'title': item_data['title']})
 	contains_filter = contains_key_value('title', 'Instabug')
 	not_contains_filter = not_contains_key_value('title', 'Instabug')
@@ -77,3 +80,46 @@ def not_contains_key_value(key, uppercase_value):
 
 def contains_word(element, key, uppercase_value):
 	return uppercase_value.lower() in element[key] or uppercase_value in element[key]
+
+def pretty_date(time=False):
+    """
+    Get a datetime object or a int() Epoch timestamp and return a
+    pretty string like 'an hour ago', 'Yesterday', '3 months ago',
+    'just now', etc
+    """
+    diff = ""
+    now = datetime.now()
+    if type(time) is int:
+        diff = now - datetime.fromtimestamp(time)
+    elif isinstance(time,datetime):
+        diff = now - time
+    elif not time:
+        diff = now - now
+    second_diff = diff.seconds
+    day_diff = diff.days
+
+    if day_diff < 0:
+        return ''
+
+    if day_diff == 0:
+        if second_diff < 10:
+            return "just now"
+        if second_diff < 60:
+            return str(second_diff) + " seconds ago"
+        if second_diff < 120:
+            return "a minute ago"
+        if second_diff < 3600:
+            return str(second_diff / 60) + " minutes ago"
+        if second_diff < 7200:
+            return "an hour ago"
+        if second_diff < 86400:
+            return str(second_diff / 3600) + " hours ago"
+    if day_diff == 1:
+        return "Yesterday"
+    if day_diff < 7:
+        return str(day_diff) + " days ago"
+    if day_diff < 31:
+        return str(day_diff / 7) + " weeks ago"
+    if day_diff < 365:
+        return str(day_diff / 30) + " months ago"
+    return str(day_diff / 365) + " years ago"

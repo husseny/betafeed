@@ -24,6 +24,13 @@ app.factory('Scopes', function ($rootScope) {
 
 app.controller('homeCtrl', ['$scope', '$http', '$window', 'Scopes',  function userCtrl ($scope, $http, $window, Scopes){
 	$scope.feed_index = 0;
+	$scope.tweets = twitter_feed;
+	$scope.open_status = function(status_id){
+		$window.open('https://twitter.com/statuses/'+status_id);
+	};
+	$scope.open_profile = function(screen_name){
+		$window.open('https://twitter.com/'+screen_name);
+	}
 }]);
 
 app.animation('.slide-left-animation', function ($window) {

@@ -15,9 +15,8 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.min.js"></script>
 	<script type="text/javascript" src="{% static "betahash/js/homeApp.js" %}"></script>
 	<script type="text/javascript">
-		var reddit_feed = '{{reddit_feed}}';
-		var twitter_feed = '{{twitter_feed}}'
-		console.log(twitter_feed);
+		var reddit_feed = JSON.parse('{{ reddit_feed | escapejs }}');
+		var twitter_feed = JSON.parse('{{ twitter_feed | escapejs }}');
 	</script>
 	<title>Hoverland</title>
 </head>
@@ -53,9 +52,29 @@
 					<img class="yc-logo" ng-click="feed_index = 3" src="{% static "betafeed/img/ycombinator-logo.png" %}">
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-offset-2 col-md-4">
-					<div ng-show="feed_index == 1">twitter</div>
+			<div class="row feed">
+				<div class="col-md-offset-3 col-md-6 scrollable-div">
+					<div ng-show="feed_index == 1">
+						<div class="col-md-12 tweet" ng-repeat="tweet in tweets track by $index"
+							ng-click="open_status(tweet.status_id)">
+							<div class="col-md-2">
+								<div class="img-div">
+									<img class="img-circle" ng-src="{[{tweet.profile_image}]}"
+										ng-click="open_profile(tweet.screen_name)">
+								</div>
+							</div>
+							<div class="col-md-10">
+								<div class="row">
+									<span><a href="" ng-click="open_profile(tweet.screen_name)">{[{tweet.user_name}]}</a></span>
+									<span ng-click="open_profile(tweet.screen_name)">@{[{tweet.screen_name}]}</span> - 
+									<span>{[{tweet.date}]}</span>
+								</div>
+								<div class="row">
+									<span>{[{tweet.tweet}]}</span>
+								</div>
+							</div>
+						</div>
+					</div>
 					<div ng-show="feed_index == 2">reddit</div>
 					<div ng-show="feed_index == 3">coming soon</div>
 				</div>
