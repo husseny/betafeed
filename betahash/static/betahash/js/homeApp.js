@@ -1,11 +1,11 @@
-var app = angular.module('homeApp', ['ui.bootstrap']);
+var app = angular.module('homeApp', []);
 
 app.config(function($interpolateProvider, $httpProvider) {
 	$interpolateProvider.startSymbol('{[{');
 	$interpolateProvider.endSymbol('}]}');
 	$httpProvider.defaults.xsrfCookieName = 'csrftoken';
 	$httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
-	$httpProvider.defaults.enctype="multipart/form-data";
+	// $httpProvider.defaults.enctype="multipart/form-data";
 });
 
 app.factory('Scopes', function ($rootScope) {
